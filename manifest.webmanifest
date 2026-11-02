@@ -1,0 +1,27 @@
+{
+  "name": "GymLog — Krafttraining & Fortschritt",
+  "short_name": "GymLog",
+  "description": "Intelligentes Krafttraining-Tracking mit Progressive Overload, Progressions-Charts, Muskel-Heatmap und Offline-Historie.",
+  "lang": "de-DE",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0B0C0E",
+  "theme_color": "#0B0C0E",
+  "categories": ["fitness", "health", "sports"],
+  "icons": [
+    {
+      "src": "./assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

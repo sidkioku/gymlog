@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0B0C0E" />
+    <meta name="color-scheme" content="dark" />
+    <meta
+      name="description"
+      content="GymLog — Intelligentes Krafttraining-Tracking, Progressive Overload, Progressions-Charts, Muskel-Heatmap & Offline-Historie für dein iPhone."
+    />
+
+    <!-- iPhone / iOS Home-Screen WebApp (PWA) -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="GymLog" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <title>GymLog — Krafttraining &amp; Fortschritt</title>
+
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./assets/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="64x64"
+      href="./assets/favicon.png"
+    />
+
+    <link rel="stylesheet" href="./styles/tokens.css" />
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/components.css" />
+  </head>
+  <body>
+    <noscript>
+      <div style="padding: 24px; color: #f5f7f2; font-family: system-ui, sans-serif;">
+        <h1>GymLog WebApp</h1>
+        <p>Bitte aktiviere JavaScript in Safari, um GymLog zu nutzen.</p>
+      </div>
+    </noscript>
+
+    <!-- Hauptinhalt (Home, Geräte, Fortschritt, Einstellungen) -->
+    <main id="app-main" class="app-shell" aria-live="polite"></main>
+
+    <!-- Schwebende Mini-Leiste bei minimiertem aktivem Workout -->
+    <div id="mini-workout-slot"></div>
+
+    <!-- Untere Hauptnavigation -->
+    <nav
+      id="bottom-tab-bar"
+      class="bottom-tab-bar"
+      aria-label="Hauptnavigation"
+    ></nav>
+
+    <!-- Vollbild-Workout-Ansicht -->
+    <div id="workout-overlay-slot"></div>
+
+    <!-- Native Top-Layer Bottom-Sheet & Dialog-Modals -->
+    <dialog id="app-modal"></dialog>
+    <dialog id="app-prompt-modal" class="center-dialog"></dialog>
+
+    <!-- Toast-Benachrichtigungen -->
+    <div id="toast-container" class="toast-stack" aria-live="polite"></div>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
