@@ -1,5 +1,5 @@
 /* GymLog Offline Service Worker (Classic Script for maximum iOS Safari compatibility) */
-const CACHE_NAME = 'gymlog-pwa-v2';
+const CACHE_NAME = 'gymlog-pwa-v3';
 
 const PRECACHE_ASSETS = [
   './',

@@ -8,7 +8,6 @@ import {
   isSameLocalDay,
 } from '../weight.js';
 import { computeMuscleHeatmapStats, evaluateAllOverloads } from '../overload.js';
-import { isStandalonePWA } from '../storage.js';
 import { esc, icon } from '../icons.js';
 
 function getGreetingDE() {
@@ -149,23 +148,6 @@ export function renderDashboardView(store) {
   const targetMinutes = 60;
   const targetVolume = unit === 'lbs' ? 11000 : 5000;
 
-  const showInstallHint = !isStandalonePWA() && !store.settings.hideInstallBanner;
-
-  const installBannerHtml = showInstallHint
-    ? `
-      <section class="install-hint-card">
-        <div class="install-hint-icon">${icon('iphone', 20)}</div>
-        <div class="install-hint-body">
-          <strong>Als echte iPhone-App nutzen</strong>
-          <p>Tippe in Safari auf <b>Teilen</b> ${icon('share', 13)} und wähle <b>„Zum Home-Bildschirm“</b> für Vollbild, Offline-Modus & geschützten Verlauf.</p>
-        </div>
-        <button type="button" class="icon-close-sm" data-action="dismiss-install-banner" aria-label="Hinweis schließen">
-          ${icon('close', 16)}
-        </button>
-      </section>
-    `
-    : '';
-
   // Active workout banner if running
   let activeHeroHtml = '';
   if (store.activeSession) {
@@ -177,9 +159,9 @@ export function renderDashboardView(store) {
       <button type="button" class="active-workout-hero" data-action="resume-workout">
         <div class="active-hero-pulse">${icon(resting ? 'timer' : 'play', 20)}</div>
         <div class="active-hero-info">
-          <span class="kicker-lime">AKTIVES TRAINING LÄUFT</span>
+          <span class="kicker-lime">AKTIVES TRAINING</span>
           <strong>${esc(store.activeSession.machineName)}</strong>
-          <span>${completedCount} von ${totalCount} Sätzen abgeschlossen${
+          <span>${completedCount}/${totalCount} Sätze${
             resting ? ` • Pause ${formatRestTime(remSec)}` : ''
           }</span>
         </div>
@@ -194,8 +176,8 @@ export function renderDashboardView(store) {
     ? `
       <section class="dashboard-section">
         <div class="section-header-inline">
-          <span class="section-kicker" style="color:#C3F400">${icon('bolt', 15)} SMART OVERLOAD EMPFEHLUNGEN</span>
-          <span class="count-pill">${recommendations.length} bereit</span>
+          <span class="section-kicker" style="color:#C3F400">${icon('bolt', 15)} ERHÖHUNG BEREIT</span>
+          <span class="count-pill">${recommendations.length}</span>
         </div>
         <div class="overload-carousel">
           ${recommendations
@@ -266,8 +248,8 @@ export function renderDashboardView(store) {
           .join('')}
       </div>`
     : `<div class="empty-inline-card">
-         <p>Markiere Geräte mit ★ als Favorit für den direkten 1-Tap-Schnellstart.</p>
-         <button type="button" class="btn-secondary-sm" data-action="switch-tab" data-tab="machines">Geräte durchsuchen</button>
+         <p>Keine Favoriten ausgewählt.</p>
+         <button type="button" class="btn-secondary-sm" data-action="switch-tab" data-tab="machines">Geräte öffnen</button>
        </div>`;
 
   // Recent machines quick row (if any trained yet)
@@ -298,8 +280,6 @@ export function renderDashboardView(store) {
 
   return `
     <div class="view-container">
-      ${installBannerHtml}
-
       <section class="glass-card hero-dashboard-card">
         <div class="hero-top-row">
           <div>
@@ -319,7 +299,7 @@ export function renderDashboardView(store) {
             progress: estimatedMinutes / targetMinutes,
             color: '#C3F400',
             iconName: 'clock',
-            title: 'Zeit heute',
+            title: 'Zeit',
             value: `${estimatedMinutes}m`,
           })}
           ${renderActivityRing({
@@ -333,15 +313,9 @@ export function renderDashboardView(store) {
             progress: totalSetsToday / 20,
             color: '#FF571A',
             iconName: 'flame',
-            title: 'Sätze heute',
+            title: 'Sätze',
             value: String(totalSetsToday),
           })}
-        </div>
-
-        <div class="storage-trust-strip">
-          <span class="status-dot-ok"></span>
-          <span>${store.machines.length} Geräte • ${store.sessions.length} Einheiten lokal gespeichert</span>
-          <button type="button" class="micro-backup-link" data-action="quick-json-backup">Backup sichern</button>
         </div>
       </section>
 
@@ -350,7 +324,7 @@ export function renderDashboardView(store) {
 
       <section class="dashboard-section">
         <div class="section-header-inline">
-          <h2 class="section-title">Favoriten & Schnellstart</h2>
+          <h2 class="section-title">Favoriten</h2>
           <button type="button" class="text-action-btn" data-action="switch-tab" data-tab="machines">Alle (${store.machines.length})</button>
         </div>
         ${favoritesHtml}

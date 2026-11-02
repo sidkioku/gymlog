@@ -63,7 +63,7 @@ export function renderHistoryView(store) {
   }).join('');
 
   const machineOptions = [
-    `<option value="">Alle Geräte im Verlauf (${allSessions.length} Einheiten)</option>`,
+    `<option value="">Alle Geräte (${allSessions.length})</option>`,
     ...store.machines
       .slice()
       .sort((a, b) => a.name.localeCompare(b.name, 'de'))
@@ -120,15 +120,10 @@ export function renderHistoryView(store) {
     : `
       <div class="glass-card empty-state-card">
         <div class="empty-icon-circle">${icon('chart', 30)}</div>
-        <h3>Noch keine Trainingsdaten gefunden</h3>
-        <p>${
-          allSessions.length === 0
-            ? 'Starte dein erstes Training oder importiere ein vorhandenes Backup in den Einstellungen.'
-            : 'Für diesen Filter liegen noch keine Einheiten vor.'
-        }</p>
+        <h3>Noch keine Einheiten</h3>
         ${
           allSessions.length === 0
-            ? `<button type="button" class="btn-secondary-sm" data-action="open-manual-session">Einheit manuell nachtragen</button>`
+            ? `<button type="button" class="btn-secondary-sm" data-action="open-manual-session">Training nachtragen</button>`
             : ''
         }
       </div>
@@ -137,18 +132,10 @@ export function renderHistoryView(store) {
   return `
     <div class="view-container">
       <header class="page-top-bar">
-        <div>
-          <span class="kicker-lime">ANALYTIK & VERLAUF</span>
-          <h1 class="page-title">Fortschritt</h1>
-        </div>
-        <div class="top-bar-btn-pair">
-          <button type="button" class="pill-btn-ghost" data-action="open-manual-session" title="Vergangenes Training eintragen">
-            ${icon('plus', 15)} <span>Nachtragen</span>
-          </button>
-          <button type="button" class="pill-btn-lime-soft" data-action="quick-json-backup" title="Historie als Datei sichern">
-            ${icon('share', 15)} <span>Backup</span>
-          </button>
-        </div>
+        <h1 class="page-title">Fortschritt</h1>
+        <button type="button" class="pill-btn-ghost" data-action="open-manual-session">
+          ${icon('plus', 15)} <span>Nachtragen</span>
+        </button>
       </header>
 
       <!-- Lifetime Bento Stats -->

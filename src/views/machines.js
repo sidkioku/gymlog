@@ -98,10 +98,7 @@ export function renderMachinesListView(store) {
   return `
     <div class="view-container">
       <header class="page-top-bar">
-        <div>
-          <span class="kicker-lime">GERÄTEPARK & ZIELE</span>
-          <h1 class="page-title">Geräte & Übungen</h1>
-        </div>
+        <h1 class="page-title">Geräte</h1>
         <button type="button" class="fab-add-btn" data-action="open-add-machine" aria-label="Gerät hinzufügen">
           ${icon('plus', 20)}
           <span>Neu</span>
@@ -115,7 +112,7 @@ export function renderMachinesListView(store) {
             type="search"
             id="machine-search-input"
             class="glass-search-input"
-            placeholder="Gerät, Muskel, Sitz oder Notiz suchen…"
+            placeholder="Gerät suchen…"
             value="${esc(store.ui.searchQuery)}"
             autocomplete="off"
             autocorrect="off"
@@ -167,26 +164,23 @@ export function renderMachineDetailView(store, machineId) {
   const machineHistory = store.getHistoryForMachine(machine.id);
   const isCurrentActive = store.activeMachineId === machine.id && Boolean(store.activeSession);
 
-  const overloadBanner = overload
-    ? `
-      <section class="glass-card overload-detail-banner ${overload.isReadyForIncrease ? 'is-ready' : 'is-tip'}">
+  const overloadBanner =
+    overload && overload.isReadyForIncrease
+      ? `
+      <section class="glass-card overload-detail-banner is-ready">
         <div class="overload-banner-icon">
-          ${icon(overload.isReadyForIncrease ? 'bolt' : 'target', 22)}
+          ${icon('bolt', 22)}
         </div>
         <div class="overload-banner-copy">
-          <span class="micro-kicker">${overload.isReadyForIncrease ? 'PROGRESSIVE OVERLOAD VERFÜGBAR' : 'FORTSCHRITTS-FOKUS'}</span>
+          <span class="micro-kicker">ERHÖHUNG EMPFOHLEN</span>
           <p>${esc(overload.reason)}</p>
         </div>
-        ${
-          overload.isReadyForIncrease
-            ? `<button type="button" class="btn-lime-pill" data-action="apply-overload" data-machine-id="${esc(machine.id)}">
-                 +${formatNumber(overload.increment)} ${esc(overload.weightUnit)}
-               </button>`
-            : ''
-        }
+        <button type="button" class="btn-lime-pill" data-action="apply-overload" data-machine-id="${esc(machine.id)}">
+          +${formatNumber(overload.increment)} ${esc(overload.weightUnit)}
+        </button>
       </section>
     `
-    : '';
+      : '';
 
   const prDual = pr ? dualWeight(pr.weight, pr.unit, unit) : null;
 
@@ -228,7 +222,7 @@ export function renderMachineDetailView(store, machineId) {
           `;
         })
         .join('')
-    : `<p class="empty-muted-text">Noch keine abgeschlossenen Einheiten für dieses Gerät protokolliert.</p>`;
+    : `<p class="empty-muted-text">Noch keine Einheiten.</p>`;
 
   return `
     <div class="view-container">
@@ -264,7 +258,6 @@ export function renderMachineDetailView(store, machineId) {
         <div class="target-banner-top">
           <div>
             <span class="kicker-lime">${esc(getMachineInstruction(machine.machineType).toUpperCase())}</span>
-            <p class="banner-sub">Zielgewicht am Gerät</p>
           </div>
           <div class="stepper-pair">
             <button type="button" class="circle-step-btn is-minus"
@@ -364,7 +357,7 @@ export function renderMachineDetailView(store, machineId) {
                    )
                    .join('')}
                </div>`
-            : `<p class="empty-muted-text">Keine Sitz- oder Pin-Positionen hinterlegt. Tippe auf „Bearbeiten“, um deine Einstellungen festzuhalten.</p>`
+            : `<p class="empty-muted-text">Keine Einstellungen hinterlegt.</p>`
         }
         ${
           machine.notes

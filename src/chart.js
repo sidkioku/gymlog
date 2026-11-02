@@ -136,9 +136,8 @@ export function renderProgressionChartCard(machine, sessions, metric = 'maxWeigh
           <div class="range-pills-row">${rangeButtons}</div>
         </div>
         <div class="chart-empty-box">
-          ${icon('chart', 28)}
-          <strong>Noch nicht genügend Datenpunkte</strong>
-          <p>Absolviere mindestens 2 Trainingseinheiten an diesem Gerät, um deine interaktive Fortschrittskurve zu sehen.</p>
+          ${icon('chart', 26)}
+          <p>Ab 2 Einheiten verfügbar</p>
           ${singleInfo}
         </div>
       </section>
@@ -272,7 +271,6 @@ export function renderProgressionChartCard(machine, sessions, metric = 'maxWeigh
           ${xLabels}
         </svg>
       </div>
-      <p class="chart-hint">Tippe oder ziehe mit dem Finger über die Kurve, um einzelne Trainings zu prüfen.</p>
     </section>
   `;
 }

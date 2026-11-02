@@ -48,7 +48,7 @@ export function evaluateOverload(machine, sessions) {
       weightUnit: machine.weightUnit,
       currentReps: machine.targetReps,
       suggestedReps: machine.targetReps,
-      reason: `Alle ${completedSets.length} Sätze mit mind. ${machine.targetReps} Wdh. @ ${formatNumber(machine.targetWeight)} ${machine.weightUnit} gemeistert! Bereit für +${formatNumber(increment)} ${machine.weightUnit}.`,
+      reason: `${completedSets.length}×${machine.targetReps} mit ${formatNumber(machine.targetWeight)} ${machine.weightUnit} erreicht`,
       percentageIncrease: percent,
       isReadyForIncrease: true,
     };
@@ -64,7 +64,7 @@ export function evaluateOverload(machine, sessions) {
     weightUnit: machine.weightUnit,
     currentReps: maxRepsAchieved,
     suggestedReps: machine.targetReps,
-    reason: `Fokus auf saubere ${machine.targetReps} Wdh. in allen ${machine.targetSets} Sätzen vor der nächsten Erhöhung.`,
+    reason: `Ziel: ${machine.targetSets}×${machine.targetReps}`,
     percentageIncrease: 0,
     isReadyForIncrease: false,
   };

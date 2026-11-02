@@ -163,8 +163,7 @@ export function renderActiveWorkoutSheet(store) {
           <div class="focus-complete-head">
             <span class="focus-check-badge">${icon('check', 22)}</span>
             <div>
-              <span class="kicker-lime">ALLE ${totalCount} SÄTZE ERLEDIGT</span>
-              <h3>Starkes Set! Weiter oder abschließen?</h3>
+              <h3>Alle ${totalCount} Sätze erledigt</h3>
             </div>
           </div>
           <div class="focus-complete-actions">
